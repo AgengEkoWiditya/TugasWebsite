@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pengguna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            transition: transform 0.2s;
+        }
+        form:hover {
+            transform: scale(1.02);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 2px solid #28a745;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #1e7e34;
+            outline: none;
+        }
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .result-container {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: none; /* Hide initially */
+        }
+        .result {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #28a745;
+            background-color: #f9f9f9;
+        }
+        .result h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    
+    <form id="userForm">
+        <h1>Formulir Pengguna</h1>
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="address">Alamat:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label>Jenis Kelamin:</label>
+        <input type="radio" id="male" name="gender-radio" value="pria" required>
+        <label for="male">Pria</label>
+        <input type="radio" id="female" name="gender-radio" value="wanita">
+        <label for="female">Wanita</label>
+
+        <label>Hobi:</label>
+        <input type="checkbox" id="reading" name="hobby" value="membaca">
+        <label for="reading">Membaca</label>
+        <input type="checkbox" id="traveling" name="hobby" value="berpergian">
+        <label for="traveling">Berpergian</label>
+        <input type="checkbox" id="sports" name="hobby" value="olahraga">
+        <label for="sports">Olahraga</label>
+
+        <button type="submit">Kirim Data</button>
+    </form>
+
+    <div class="result-container" id="resultContainer">
+        <h2>Data Pengguna</h2>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman form
+
+            // Mengambil data dari form
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const genderRadio = document.querySelector('input[name="gender-radio"]:checked').value;
+            const hobbies = Array.from(document.querySelectorAll('input[name="hobby"]:checked'))
+                .map(hobby => hobby.value).join(', ');
+
+            // Menampilkan data
+            const resultContainer = document.getElementById('resultContainer');
+            const result = document.getElementById('result');
+
+            result.innerHTML = `
+                <h3>Nama: ${name}</h3>
+                <p><strong>Alamat:</strong> ${address}</p>
+                <p><strong>Jenis Kelamin:</strong> ${genderRadio}</p>
+                <p><strong>Hobi:</strong> ${hobbies || 'Tidak ada hobi yang dipilih'}</p>
+            `;
+            
+            // Menampilkan hasil
+            resultContainer.style.display = 'block';
+
+            // Mengosongkan form setelah submit
+            document.getElementById('userForm').reset();
+        });
+    </script>
+</body>
+
+</body>
+</html>
